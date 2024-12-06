@@ -34,7 +34,7 @@ function Navbar() {
         <Link to="/">Home</Link>
       </li>
       <li className="rounded">
-        <Link to="/">Shop</Link>
+        <Link to="/shop">Shop</Link>
       </li>
       <li className="rounded">
         <Link to="/addProduct">App Product</Link>

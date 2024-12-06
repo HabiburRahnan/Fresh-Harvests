@@ -15,6 +15,7 @@ import AddProduct from "./Admin/Page/AddProduct/AddProduct";
 import UpdateProduct from "./Admin/Page/UpdateProduct/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import CartPage from "./Page/CartPage/CartPage";
+import Shop from "./Page/Shop/Shop";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />
+      },
+      {
+        path: '/shop',
+        element: <Shop />
       },
 
       {
