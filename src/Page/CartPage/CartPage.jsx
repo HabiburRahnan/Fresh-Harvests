@@ -30,7 +30,7 @@ function CartPage() {
             {cartItems.length === 0 ? (
                 <div className="text-center mt-6">
                     <p>Your cart is empty.</p>
-                    <Link to="/" className="text-blue-500">Go back to shop</Link>
+                    <Link to="/" className="text-orange-500">Go back to shop</Link>
                 </div>
             ) : (
                 <div className="mt-6">
