@@ -1,72 +1,33 @@
+import CountdownTimer from "./CountdownTimer";
 
 const SeasonalBanner = () => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 154);
+
+
     return (
-        <div className="container mx-auto bg-white shadow-md rounded-lg  p-6 relative overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-gray-50 -z-10">
-                {/* Decorative Background Elements */}
-                <img
-                    src="https://via.placeholder.com/600x200" // Replace with a background graphic URL
-                    alt="decorative"
-                    className="absolute w-full h-full object-cover opacity-10"
-                />
-            </div>
+        <div className="container mx-auto">
+            <div className="flex flex-col items-center py-12 bg-[url('https://i.ibb.co.com/k883fBw/image.png')]">
+                <div className="md:flex  justify-center items-center md:space-x-10 md:gap-8 px-2">
 
-            {/* Content Section */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-8">
-                {/* Left Content */}
-                <div>
-                    {/* Special Offer */}
-                    <span className="inline-block bg-green-100 text-green-700 text-sm font-medium px-3 py-1 rounded-md">
-                        Special Offer
-                    </span>
-
-                    {/* Title */}
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-4">
-                        Seasonal Fruit Bundle
-                    </h2>
-
-                    {/* Subtitle */}
-                    <p className="text-lg text-orange-500 font-semibold mt-2">
-                        Discount up to <span className="text-3xl">80% OFF</span>
-                    </p>
-
-                    {/* Countdown Timer */}
-                    <div className="mt-6 grid grid-cols-4 gap-2 text-center">
-                        <div className="bg-gray-100 rounded-lg p-2">
-                            <p className="text-2xl font-bold">03</p>
-                            <p className="text-sm text-gray-600">Days</p>
+                    <div className=" text-center md:text-start items-center  ">
+                        <div className=" py-5 my-2">
+                            <p className="text-sm text-[#749b3f] font-medium uppercase">About us</p>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-2">
+                                About Fresh Harvest
+                            </h2>
+                            <p className="text-2xl md:text-3xl font-bold text-gray-800 mt-2">Discount up to <span className="text-[#FF6A1A]">80% OFF</span></p>
                         </div>
-                        <div className="bg-gray-100 rounded-lg p-2">
-                            <p className="text-2xl font-bold">18</p>
-                            <p className="text-sm text-gray-600">Hours</p>
+                        <div className="flex mb-6 space-x-2">
+                            <CountdownTimer targetDate={targetDate} />
                         </div>
-                        <div className="bg-gray-100 rounded-lg p-2">
-                            <p className="text-2xl font-bold">54</p>
-                            <p className="text-sm text-gray-600">Min</p>
-                        </div>
-                        <div className="bg-gray-100 rounded-lg p-2">
-                            <p className="text-2xl font-bold">21</p>
-                            <p className="text-sm text-gray-600">Sec</p>
-                        </div>
+                        <button className="bg-[#176d38] text-white px-4 py-2 rounded-md mb-6 font-bold">CODE : <span className="text-[#fac714]"> FRUIT28</span></button>
                     </div>
-
-                    {/* Promo Code */}
-                    <div className="mt-6">
-                        <p className="inline-block bg-green-500 text-white font-bold px-4 py-2 rounded-lg shadow-lg">
-                            CODE: FRUIT28
-                        </p>
+                     <div>
+                        <img className="w-full h-96 rounded-md" src="https://i.ibb.co.com/gyyD0bQ/fruits.jpg " alt="" />
                     </div>
                 </div>
 
-                {/* Right Content: Fruits Image */}
-                <div className="flex-1 flex justify-center">
-                    <img
-                        src="https://via.placeholder.com/300x200" // Replace with your fruit image URL
-                        alt="Seasonal Fruit Bundle"
-                        className="max-w-full rounded-md shadow-lg"
-                    />
-                </div>
             </div>
         </div>
     );

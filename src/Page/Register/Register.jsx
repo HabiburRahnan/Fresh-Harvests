@@ -1,27 +1,49 @@
 import { useState } from "react";
+import { useRegisterMutation } from "../../redux/api/user";
+import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
+import Login from "../Login/Login";
 
 function Register() {
+    const [login, setLogin] = useState(false)
+    const [register, { isLoading, isSuccess, error }] = useRegisterMutation();
+    const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+    const notify = () => toast("Wow so easy !");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await register(formData).unwrap();
+            toast.success("Registration successful!");
+        } catch (error) {
+            toast.error("Registration failed!");
+        }
+    };
     const [isOpen, setIsOpen] = useState(true); // Modal open state
 
     const closeModal = () => {
         setIsOpen(false);
 
     };
+    console.log(formData)
 
     return (
         <>
-            {isOpen && (
+            {isOpen && !login && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                    <ToastContainer />
                     {/* Modal container */}
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
                         {/* Close Button */}
-                        <button
+                        <a
                             onClick={closeModal}
+                            href="/"
                             className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                             aria-label="Close Modal"
                         >
                             ✕
-                        </button>
+                        </a>
+
 
                         {/* Title */}
                         <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
@@ -29,20 +51,23 @@ function Register() {
                         </h2>
 
                         {/* Form */}
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             {/* Full Name Field */}
                             <div className="mb-4">
                                 <label
                                     htmlFor="name"
                                     className="block text-gray-700 font-medium mb-2"
+
                                 >
                                     Full Name
                                 </label>
                                 <input
                                     id="name"
-                                    type="text"
                                     placeholder="Enter your name"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    type="text"
+                                    value={formData.username}
+                                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                                 />
                             </div>
 
@@ -59,6 +84,8 @@ function Register() {
                                     type="email"
                                     placeholder="Enter your email"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
 
@@ -75,6 +102,8 @@ function Register() {
                                     type="password"
                                     placeholder="Enter your password"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
                             </div>
 
@@ -97,7 +126,8 @@ function Register() {
 
                             {/* Submit Button */}
                             <button
-                                type="submit"
+                                onClick={notify}
+                                type="submit" disabled={isLoading}
                                 className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
                             >
                                 Register
@@ -108,15 +138,23 @@ function Register() {
                         <div className="text-center mt-4">
                             <p className="text-gray-700 text-sm">
                                 Don’t have an account?{" "}
-                                <a
-                                    href="#"
+                                <Link
+                                    onClick={() => {
+                                        setLogin(true);
+                                    }}
+
                                     className="text-orange-500 font-medium hover:underline"
                                 >
                                     Log in
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </div>
+                </div>
+            )}
+            {login && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <Login />
                 </div>
             )}
         </>

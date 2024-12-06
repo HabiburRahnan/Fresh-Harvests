@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Register from "../Page/Register/Register";
+import { useLoginMutation } from "../redux/api/user";
 
 function LoginModel() {
+  const [userLogin, { isLoding, error, isSuccess }] = useLoginMutation()
   const [isOpen, setIsOpen] = useState(true);
   const [isRegister, setIsRegister] = useState(false);
 
@@ -12,12 +14,13 @@ function LoginModel() {
           {/* Modal Container */}
           <div className="bg-white w-96 rounded-lg shadow-lg p-6 relative">
             {/* Close Button */}
-            <button
+            <a
+              href="/"
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
               onClick={() => setIsOpen(false)}
             >
               ✕
-            </button>
+            </a>
 
             {/* Modal Header */}
             <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">
@@ -76,6 +79,7 @@ function LoginModel() {
               <button
                 type="submit"
                 className="w-full bg-orange-500 text-white rounded-md p-2 font-medium hover:bg-orange-600"
+
               >
                 Login
               </button>
@@ -90,7 +94,7 @@ function LoginModel() {
 
             {/* Sign Up Link */}
             <p className="text-sm text-center text-gray-600">
-              Don’t have an account?{" "}
+              Don’t have an account?
               <span
                 onClick={() => {
                   setIsRegister(true);

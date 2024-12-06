@@ -9,7 +9,7 @@ import App from "./App";
 import Home from "./Page/Home/Home";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import Login from "./Page/Login/Login";
+import Products from "./Page/Product/Products";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +20,18 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />
       },
+
       {
-        path: '/login',
-        element: <Login />
-      }
+        path: "/products/:id",
+        element: (
+          <Products />
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://api-fresh-harvest.code-commando.com/api/v1/products/${params.id}`
+          ),
+      },
+
     ]
   },
 ]);

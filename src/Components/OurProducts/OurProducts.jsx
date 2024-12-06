@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Title from "../Title";
 import { useGetProductQuery } from "../../redux/api/product";
+import { Link } from "react-router-dom";
 
 function Products() {
   const [activeTab, setActiveTab] = useState("All");
@@ -8,7 +9,7 @@ function Products() {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log(data.data[0].images[0])
+  // console.log(data.data[0].images[0])
   const tabs = ["All", "Fruits", "Vegetables", "Salad"];
 
   return (
@@ -38,7 +39,7 @@ function Products() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 py-10 px-2">
         {
           data?.data?.slice(0, 8).map(item =>
-            <div key={item.id} className="bg-white rounded-lg shadow-md p-4 max-w-xs w-full">
+            <Link to={`/products/${item?.id}`} key={item.id}  className="bg-white rounded-lg shadow-md p-4 max-w-xs w-full">
               {/* Image */}
               <div className="flex justify-center">
                 <img
@@ -55,20 +56,20 @@ function Products() {
               </h2>
 
               {/* Product Price */}
-              <p className="text-gray-500 text-center text-sm">{item?.price}</p>
+              <p className="text-gray-500 text-center text-sm">${item?.price}/kg</p>
 
               {/* Add to Cart Button */}
               <button className="mt-4 w-full py-2 bg-[#FF6A1A] text-white rounded-lg font-medium hover:bg-[#FF6A1A] transition">
                 Add to cart
               </button>
-            </div>)
+            </Link>)
         }
       </div>
       <div className="flex justify-center items-center">
 
         <button
           className="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
-          // onAuxClick={}
+        // onAuxClick={}
         >
           See All Products
         </button>
