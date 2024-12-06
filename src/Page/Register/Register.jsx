@@ -8,7 +8,6 @@ function Register() {
     const [login, setLogin] = useState(false)
     const [register, { isLoading, isSuccess, error }] = useRegisterMutation();
     const [formData, setFormData] = useState({ username: "", email: "", password: "" });
-    const notify = () => toast("Wow so easy !");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +29,7 @@ function Register() {
     return (
         <>
             {isOpen && !login && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                <div className="mt-20 md:fixed md:mt-0 inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
                     <ToastContainer />
                     {/* Modal container */}
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
@@ -126,7 +125,7 @@ function Register() {
 
                             {/* Submit Button */}
                             <button
-                                onClick={notify}
+                               
                                 type="submit" disabled={isLoading}
                                 className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
                             >

@@ -3,7 +3,7 @@ import SpacialOffer from "./SpacialOffer";
 function Background() {
   return (
     <div className="container mx-auto bg-[url('https://i.ibb.co.com/YDLFGYZ/image.png ">
-      <div className="relative w-full h-[83vh]  bg-white">
+      <div className="relative w-full h-[325px] lg:h-[458px] bg-white">
         {/* Left White Section */}
         <div className="absolute text-start top-0 left-0 w-2/3 h-full bg-white mt-16">
           {/* Decorative Leaves */}
@@ -23,7 +23,7 @@ function Background() {
             className="absolute bottom-20 left-16 w-6 h-6"
           />
           {/* Orange Accent */}
-          <div className="absolute top-[30%] lg:top-[40%] text-start px-4 transform -translate-y-1/2 ">
+          <div className="absolute top-[30%]  lg:top-[40%] text-start px-4 transform -translate-y-1/2 ">
             <div className="space-y-0 md:space-y-2 lg:space-y-4 ">
               <p className="text-green-600 text-sm font-medium ">
                 Welcome to Fresh Harvest
@@ -35,11 +35,11 @@ function Background() {
                 At Fresh Harvest, we are passionate about providing you with the
                 freshest <br  /> and most flavorful fruits and vegetables.
               </p>
-              <button className="px-2 md:px-3 lg:px-6 md:py-2 lg:py-3 bg-orange-500 text-white font-semibold rounded shadow-md hover:bg-orange-600">
+              <button className="px-2 md:px-3 lg:px-6 md:py-2 lg:py-3 bg-orange-500 text-white font-semibold rounded shadow-md hover:bg-orange-600 ">
                 Shop Now
               </button>
             </div>
-           <div className=" md:flex lg:flex-col gap-5 ">
+           <div className=" md:flex lg:flex-col gap-5 mt-2">
             <div>
             <SpacialOffer></SpacialOffer>
             </div>

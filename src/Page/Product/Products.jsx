@@ -1,7 +1,8 @@
 import { useLoaderData } from "react-router-dom";
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 import Title from "../../Components/Title";
 import { useGetProductQuery } from "../../redux/api/product";
+import { Bounce, toast } from "react-toastify";
 
 function Products() {
     const { data, error, isLoading } = useGetProductQuery();
@@ -13,11 +14,52 @@ function Products() {
 
     const { productName, description, images } = items?.data || {};
 
-    // Handler for increasing the quantity
+    // Handlers for increasing/decreasing quantity
     const increaseQuantity = () => setQuantity((prev) => prev + 1);
+    const decreaseQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Prevent below 1
 
-    // Handler for decreasing the quantity
-    const decreaseQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Prevents quantity below 1
+    // Save to Cart Handler
+    const saveToCart = (item, qty) => {
+        const existingCart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart or initialize
+
+        // Check if the product already exists in the cart
+        const existingProductIndex = existingCart.findIndex(
+            (product) => product.id === item.id
+        );
+
+        if (existingProductIndex !== -1) {
+            // Update the quantity of the existing product
+            existingCart[existingProductIndex].quantity += qty;
+            toast.success(`${item.productName} quantity updated in your cart!`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+        } else {
+            // Add the new product to the cart
+            existingCart.push({ ...item, quantity: qty });
+            toast.success(`${item.productName} has been added to your cart!`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                });
+        }
+
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(existingCart));
+    };
 
     return (
         <div className="container mx-auto">
@@ -54,12 +96,12 @@ function Products() {
                         </h1>
 
                         {/* Rating and Price */}
-                        <div className="flex items-center justify-between mt-4">
-                            <div className="flex items-center text-yellow-500">
+                        <div className=" mt-4">
+                            <div className="flex items-center text-[#ff6a19]">
                                 ★★★★★
-                                <span className="text-gray-600 text-sm ml-2">(5.0 reviews)</span>
+                                <span className="text-black text-base ml-2">(5.0 reviews)</span>
                             </div>
-                            <span className="text-2xl font-bold text-green-600">$6.3/kg</span>
+                            <p className="text-2xl font-bold text-[#ff6a19]">$6.3/kg</p>
                         </div>
 
                         {/* Product Description */}
@@ -98,7 +140,10 @@ function Products() {
                             <button className="flex-1 bg-gray-200 text-gray-800 font-medium py-3 rounded-lg hover:bg-gray-300">
                                 Save as Favorite
                             </button>
-                            <button className="flex-1 bg-orange-500 text-white font-medium py-3 rounded-lg hover:bg-orange-600">
+                            <button
+                                onClick={() => saveToCart(items?.data, quantity)} // Save to cart with quantity
+                                className="flex-1 bg-orange-500 text-white font-medium py-3 rounded-lg hover:bg-orange-600"
+                            >
                                 Add to Cart
                             </button>
                         </div>
@@ -158,7 +203,10 @@ function Products() {
                         <p className="text-gray-500 text-center text-sm">${item?.price}/kg</p>
 
                         {/* Add to Cart Button */}
-                        <button className="mt-4 w-full py-2 bg-[#FF6A1A] text-white rounded-lg font-medium hover:bg-[#FF6A1A] transition">
+                        <button
+                            onClick={() => saveToCart(item, 1)} // Add to cart from related products
+                            className="mt-4 w-full py-2 bg-[#FF6A1A] text-white rounded-lg font-medium hover:bg-[#FF6A1A] transition"
+                        >
                             Add to cart
                         </button>
                     </div>
